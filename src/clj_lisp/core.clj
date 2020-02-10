@@ -280,10 +280,10 @@
 (defn repl []
   (print "> ")
   (flush)
-  (let [l (read-line)
-        obj (eval (first (read l)) g-env)]
-    (println (print-obj obj)))
-  (recur))
+  (when-let [l (read-line)]
+    (let [obj (eval (first (read l)) g-env)]
+      (println (print-obj obj))
+      (recur))))
 
 (defn -main [& _args]
   (add-to-env! (make-sym "car") (make-subr subr-car) g-env)
