@@ -241,7 +241,7 @@
         y (safe-car (safe-cdr args))]
     (if (and (= :num (:tag x)) (= :num (:tag y)))
       (if (= (:data x) (:data y)) sym-t k-nil)
-      (if (= x y) sym-t k-nil))))
+      (if (identical? x y) sym-t k-nil))))
 
 (defn subr-atom [args]
   (if (= :cons (:tag (safe-car args))) k-nil sym-t))
