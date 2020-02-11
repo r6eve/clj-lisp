@@ -67,7 +67,7 @@
 (defn pairlis [lst1 lst2]
   (loop [lst1 lst1 lst2 lst2 acc k-nil]
     (if-not (and (= :cons (:tag lst1)) (= :cons (:tag lst2)))
-      acc
+      (nreverse acc)
       (recur @(:cdr lst1)
              @(:cdr lst2)
              (make-cons (make-cons @(:car lst1) @(:car lst2)) acc)))))
