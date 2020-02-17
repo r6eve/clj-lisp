@@ -220,9 +220,10 @@
                     (progn (:body f) (make-cons (pairlis (:args f) args) (:env f)) k-nil)
                     (make-error (str (print-obj f) " is not function")))))))]
     (if (= :sym (:tag obj))
-      (if-let [pair (find-var obj env)]
-        (safe-cdr pair)
-        (make-error (str (:data obj) " has no value")))
+      (let [pair (find-var obj env)]
+        (if (= k-nil pair)
+          (make-error (str (:data obj) " has no value"))
+          (safe-cdr pair)))
       (if (= :cons (:tag obj))
         (eval-cons obj env)
         obj))))
